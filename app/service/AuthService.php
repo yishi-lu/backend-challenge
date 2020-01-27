@@ -115,11 +115,11 @@
                     $password_hash = $row['password'];
                 }
 
-                $password = htmlspecialchars(strip_tags($user->getPassword()));
+                $password = htmlspecialchars(strip_tags($user->getPassword())) ?? null;
 
                 $stmt->close();
 
-                if (password_verify($password, $password_hash)) {
+                if (password_verify($password, $password_hash ?? null)) {
                     return array("success"=>$cur_user);
                 }
                 else {
