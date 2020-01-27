@@ -58,6 +58,34 @@
                 );
             }
         }
+
+        /**
+         * generate token for current logined user
+         *
+         * @param null
+         * @return token
+         */
+        public function generateToken($user){
+
+            $now = time();
+
+            $token = array(
+                "iss" => WEB_HOST,
+                "nbf" => $now,
+                "exp" => $now+60*60*24*7,//set token expiration time
+                "data" => array(
+                    "id" => $user['id'],
+                    "name" => $user['name'],
+                    "email" => $user['email']
+                )
+            );
+
+            $key="top_secret";
+
+            $jwt = JWT::encode($token, $key);
+            
+            return $jwt;
+        }
     }
 
 
